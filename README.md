@@ -3,7 +3,7 @@
 **About me**:
 
 - 💼 Developing [Go](https://go.dev/doc/effective_go) plugins & features for [Angular](https://angular.io/) web applications@Infosys
-- ❤️ Love
+- ❤️ Love reading open-source Go & Rust code
 - 🤞 Aspiring Full Stack Developer
 - 💬 Ask me about anything [here](https://linkedin.com/in/lalilalox2)
 
