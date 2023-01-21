@@ -4,7 +4,7 @@
 
 - 💼 Developing [Go](https://go.dev/doc/effective_go) plugins & features for [Angular](https://angular.io/) web applications@Infosys
 - ❤️ Love
-- Aspiring Full Stack Developer
+- 🤞 Aspiring Full Stack Developer
 - 💬 Ask me about anything [here](https://linkedin.com/in/lalilalox2)
 
 <code><img height="20" alt="go" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/go/go.png"></code>
