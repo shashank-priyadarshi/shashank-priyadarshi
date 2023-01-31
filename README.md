@@ -1,4 +1,4 @@
-### Hi there I'm [Shashank](ssnk.in)👋
+### Hi there I'm [Shashank](https://ssnk.in)👋
 
 **About me**:
 
