@@ -3,7 +3,7 @@
 **About me**:
 
 - 💼 Developing [Go](https://go.dev/doc/effective_go) plugins & features for [Angular](https://angular.io/) web applications
-- ❤️ Love reading open-source Go & Rust code
+- ❤️ Love reading open-source <code><img height="20" alt="go" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/go/go.png"></code> & <code><img height="20" alt="go" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/rust/rust.png"></code> code
 - 🤞 Aspiring Full Stack Developer
 - 💬 Ask me about anything [here](https://linkedin.com/in/lalilalox2)
 
