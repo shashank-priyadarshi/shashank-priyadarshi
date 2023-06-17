@@ -2,9 +2,12 @@
 
 **About me**:
 
-- 💼 Developing [Go](https://go.dev/doc/effective_go) plugins & features for [Angular](https://angular.io/) web applications
-- ❤️ Love reading open-source <code><img height="20" alt="go" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/go/go.png"></code> & <code><img height="20" alt="go" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/rust/rust.png"></code> code
-- 🤞 Aspiring Full Stack Developer
+- 💼 Building Smart Contracts and scalable permissioned blockchain networks
+- 💼 Building storage engines for scalable and reliable data access from distributed databases 
+- ❤️ Developing [Go](https://go.dev/doc/effective_go) plugins & features for [Angular](https://angular.io/) web applications
+- ❤️ Love reading open-source <code><img height="20" alt="go" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/go/go.png"></code> & <code><img height="20" alt="rust" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/rust/rust.png"></code> code
+- 🌱 Learning <code><img height="20" alt="rust" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/rust/rust.png"></code> , [Substrate](https://docs.substrate.io) and [Hyperledger Fabric](https://github.com/hyperledger/fabric)
+- 🤞 Better than yesterday
 - 💬 Ask me about anything [here](https://linkedin.com/in/lalilalox2)
 
 <code><img height="20" alt="go" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/go/go.png"></code>
