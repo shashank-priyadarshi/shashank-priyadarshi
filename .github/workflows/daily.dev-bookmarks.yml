@@ -16,5 +16,5 @@ jobs:
           comment_tag_name: "daily.dev BOOKMARKS"
           feed_list: "https://api.daily.dev/rss/b/9416478d-1dbd-4785-8209-a3965430e4a7"
 
-<!--  daily.dev BOOKMARKS:START -->
-<!--  daily.dev BOOKMARKS:END -->
+# <!--  daily.dev BOOKMARKS:START -->
+# <!--  daily.dev BOOKMARKS:END -->
