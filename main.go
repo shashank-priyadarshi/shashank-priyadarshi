@@ -7,6 +7,8 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
+	"time"
 
 	"github.com/mmcdole/gofeed"
 	"go.uber.org/zap"
@@ -16,16 +18,17 @@ const (
 	RSS_URL          = "https://blog.ssnk.in/rss.xml"
 	GITHUB_STATS_URL = "https://github-readme-stats.vercel.app/api?username=shashank-priyadarshi&show_icons=true&hide_border=true&include_all_commits=true&card_width=600&custom_title=GitHub%20Open%20Source%20Stats&title_color=3B7EBF&text_color=474A4E&icon_color=3B7EBF&hide=contribs&show=prs_merged&theme=transparent#gh-light-mode-only"
 	GITHUB_URL       = "https://api.github.com/graphql"
-	GITHUB_QUERY     = `{
-		"query": "query { viewer { repositories(first: 100, ownerAffiliations: [OWNER], orderBy: {field: UPDATED_AT, direction: DESC}) { nodes { name url isFork defaultBranchRef { target { repository { updatedAt } ... on Commit { history(first: 100, since: \"2023-10-10T00:00:00Z\") { totalCount } } } } pullRequests(states: MERGED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) { totalCount } issues(states: CLOSED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) { totalCount } } } } }"
-	}`
-	LAYOUT       = "2006-01-02T15:04:05Z07:00"
-	UPDATED_AT   = "Last Updated "
-	PUBLISHED_AT = "Published "
+	LAYOUT           = "2006-01-02T15:04:05Z"
+	UPDATED_AT       = "Last Updated "
+	PUBLISHED_AT     = "Published "
 )
 
 var (
 	logger, _    = zap.NewProduction()
+	REPOCOUNT    = 20
+	GITHUB_QUERY = `{
+		"query": "query {viewer {repositories(first: %d ownerAffiliations: [OWNER] orderBy: {field: PUSHED_AT, direction: DESC}isArchived: false privacy: PUBLIC) {nodes {name url pushedAt refs(refPrefix: \"refs/heads/\", first: 5) {nodes {name target {... on Commit {history(first: 100, since: \"%s\", author: {emails: [\"shashank9163882019@gmail.com\"]}) {totalCount}}}}} pullRequests(states: MERGED first: 100 orderBy: {field: UPDATED_AT, direction: DESC}) {totalCount} issues(states: CLOSED first: 100 orderBy: {field: UPDATED_AT, direction: DESC}) {totalCount}}}}}"
+	}`
 	GITHUB_TOKEN = os.Getenv("GITHUB_TOKEN")
 	LIST_ITEM    = `<li><a href="%s" target="_blank" rel="noopener noreferrer">%s</a> %s: %s</li>`
 	HEADER       = `<div align="center"><p><a href="https://ssnk.in"><img src="https://img.shields.io/badge/-Website-3B7EBF?style=for-the-badge&amp;logo=amp&amp;logoColor=white" alt="Website Badge"></a> <a href="https://blog.ssnk.in"><img src="https://img.shields.io/badge/-Blog-3B7EBF?style=for-the-badge&amp;logo=Hashnode&amp;logoColor=white" alt="Blog Badge"></a> <a href="https://linkedin.com/in/shashank-priyadarshi"><img src="https://img.shields.io/badge/-LinkedIn-3B7EBF?style=for-the-badge&amp;logo=Linkedin&amp;logoColor=white" alt="Linkedin Badge"></a> <a href="https://peerlist.io/shasha"><img src="https://img.shields.io/badge/-PeerList-3B7EBF?style=for-the-badge&amp;logo=Peerlist&amp;logoColor=white" alt="Peerlist Badge"/></a></p><hr><p>Hi there 👋! I'm <a href="https://ssnk.in">Shashank</a>. I am a Backend Developer, currently building distributed payment solutions at <a href="https://npci.org.in">NPCI</a>. I like tinkering, and writing code, some of which I have pinned below. Sometimes I play <a href="https://www.chess.com/member/ttefabob">chess</a>, and then I procrastinate.</p><hr><p><img src="./assets/images/stats.svg"/></p><hr><h2>Highlights</h2><details><summary>Projects</summary><br /><ul>%s</ul></details><details><summary>Recent Blogposts</summary><br /><ul>%s</ul></details><hr></div>`
@@ -88,13 +91,12 @@ type githubData struct {
 }
 
 func (g *githubData) fetchGitHubData() {
-	body, err := httpClient("POST", GITHUB_URL, GITHUB_QUERY, "Authorization", fmt.Sprintf("Bearer %s", GITHUB_TOKEN))
+	query := fmt.Sprintf(GITHUB_QUERY, REPOCOUNT, getDateRange())
+	body, err := httpClient("POST", GITHUB_URL, query, "Authorization", fmt.Sprintf("Bearer %s", GITHUB_TOKEN))
 	if err != nil {
 		logger.Sugar().Errorf("error making http request to %s: %s\n", GITHUB_URL, err.Error())
 		return
 	}
-
-	// logger.Sugar().Info("Raw GitHub data received: %s", string(body))
 
 	githubData := GitHubData{}
 	err = json.Unmarshal(body, &githubData)
@@ -104,29 +106,30 @@ func (g *githubData) fetchGitHubData() {
 	}
 
 	githubDataLength := len(githubData.Data.Viewer.Repositories.Nodes)
-	// logger.Sugar().Info("Number of repository nodes: %s", githubDataLength)
-	// logger.Sugar().Info("GitHub data obtained: %v", githubData.Data.Viewer.Repositories.Nodes)
 
 	for i := 0; i < githubDataLength-1; i++ {
 		githubDataNode := githubData.Data.Viewer.Repositories.Nodes[i]
-		// if githubDataNode.IsFork {
-		// 	logger.Sugar().Errorf("%s is a forked repository", githubDataNode.Name)
-		// 	continue
-		// }
 
-		// updatedAt, err := time.Parse(LAYOUT, githubDataNode.DefaultBranchRef.Target.Repository.UpdatedAt)
-		// if err != nil {
-		// 	logger.Sugar().Errorf("error unmarshaling updatedAt %s for repository %s: %s\n", githubDataNode.DefaultBranchRef.Target.Repository.UpdatedAt, githubDataNode.Name, err.Error())
-		// }
-
-		g.commits, g.prs, g.issues, g.projects = g.commits+githubDataNode.DefaultBranchRef.Target.History.TotalCount, g.prs+githubDataNode.Issues.TotalCount, g.issues+githubDataNode.Issues.TotalCount, append(g.projects, item{
+		g.prs, g.issues, g.projects = g.prs+githubDataNode.Issues.TotalCount, g.issues+githubDataNode.Issues.TotalCount, append(g.projects, item{
 			title:     githubDataNode.Name,
 			permalink: githubDataNode.URL,
-			updated:   githubDataNode.DefaultBranchRef.Target.Repository.UpdatedAt[:10],
+			updated:   githubDataNode.PushedAt.String()[:10],
 		})
 
-		g.list += fmt.Sprintf(LIST_ITEM, githubDataNode.URL, githubDataNode.Name, UPDATED_AT, githubDataNode.DefaultBranchRef.Target.Repository.UpdatedAt[:10])
+		for _, val := range githubDataNode.Refs.Nodes {
+			if strings.Contains(val.Name, "bot") {
+				continue
+			}
+			g.commits += val.Target.History.TotalCount
+		}
+
+		g.list += fmt.Sprintf(LIST_ITEM, githubDataNode.URL, githubDataNode.Name, UPDATED_AT, githubDataNode.PushedAt.String()[:10])
 	}
+}
+
+func getDateRange() (date string) {
+	date = time.Now().AddDate(0, -3, 0).Format(LAYOUT)
+	return
 }
 
 type rss struct {
@@ -162,32 +165,32 @@ type GitHubData struct {
 		Viewer struct {
 			Repositories struct {
 				Nodes []struct {
-					Name, URL        string
-					IsFork           bool
-					DefaultBranchRef struct {
-						Target struct {
-							Repository struct {
-								UpdatedAt string
-							}
-							History struct {
-								TotalCount int
-							}
-						}
-					}
+					Name     string    `json:"name"`
+					URL      string    `json:"url"`
+					PushedAt time.Time `json:"pushedAt"`
+					Refs     struct {
+						Nodes []struct {
+							Name   string `json:"name"`
+							Target struct {
+								History struct {
+									TotalCount int `json:"totalCount"`
+								} `json:"history"`
+							} `json:"target"`
+						} `json:"nodes"`
+					} `json:"refs"`
 					PullRequests struct {
-						TotalCount int
-					}
+						TotalCount int `json:"totalCount"`
+					} `json:"pullRequests"`
 					Issues struct {
-						TotalCount int
-					}
-				}
-			}
-		}
-	}
+						TotalCount int `json:"totalCount"`
+					} `json:"issues"`
+				} `json:"nodes"`
+			} `json:"repositories"`
+		} `json:"viewer"`
+	} `json:"data"`
 }
 
 func httpClient(method, url, body, authMechanism, auth string) (resBody []byte, err error) {
-
 	client := http.Client{}
 	req, err := http.NewRequest(method, url, bytes.NewReader([]byte(body)))
 	if err != nil {
@@ -201,9 +204,16 @@ func httpClient(method, url, body, authMechanism, auth string) (resBody []byte, 
 	}
 
 	response, err := client.Do(req)
-	if err != nil || response.StatusCode != 200 {
+	if err != nil {
+		logger.Sugar().Info(err)
 		return
 	}
+
+	if response.StatusCode != 200 {
+		err = fmt.Errorf("status code: %v", response.StatusCode)
+		return
+	}
+
 	defer response.Body.Close()
 
 	resBody, err = io.ReadAll(response.Body)
