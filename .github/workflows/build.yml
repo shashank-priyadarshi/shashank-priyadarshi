@@ -17,10 +17,10 @@ jobs:
         with:
             go-version: '1.21'  
       - name: Install Dependencies
-        run: |-
-            go mod tidy
-            export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        run: go mod tidy
       - name: Rebuild README.md File
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: go run main.go
       - name: Commit and Push if Changed
         run: |-
