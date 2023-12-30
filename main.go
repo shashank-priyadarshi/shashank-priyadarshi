@@ -17,7 +17,7 @@ const (
 	GITHUB_STATS_URL = "https://github-readme-stats.vercel.app/api?username=shashank-priyadarshi&show_icons=true&hide_border=true&include_all_commits=true&card_width=600&custom_title=GitHub%20Open%20Source%20Stats&title_color=3B7EBF&text_color=474A4E&icon_color=3B7EBF&hide=contribs&show=prs_merged&theme=transparent#gh-light-mode-only"
 	GITHUB_URL       = "https://api.github.com/graphql"
 	GITHUB_QUERY     = `{
-		"query": "query { viewer { repositories(first: 100, isFork: false, ownerAffiliations: [OWNER]) { nodes { name url isFork defaultBranchRef { target { repository { updatedAt } ... on Commit { history(first: 100, since: \"2023-01-01T00:00:00Z\") { totalCount } } } } pullRequests(states: MERGED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) { totalCount } issues(states: CLOSED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) { totalCount } } } } }"
+		"query": "query { viewer { repositories(first: 100, ownerAffiliations: [OWNER]) { nodes { name url isFork defaultBranchRef { target { repository { updatedAt } ... on Commit { history(first: 100, since: \"2023-10-10T00:00:00Z\") { totalCount } } } } pullRequests(states: MERGED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) { totalCount } issues(states: CLOSED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) { totalCount } } } } }"
 	}`
 	LAYOUT       = "2006-01-02T15:04:05Z07:00"
 	UPDATED_AT   = "Last Updated "
@@ -94,7 +94,7 @@ func (g *githubData) fetchGitHubData() {
 		return
 	}
 
-	logger.Sugar().Info("Raw GitHub data received: %s", string(body))
+	// logger.Sugar().Info("Raw GitHub data received: %s", string(body))
 
 	githubData := GitHubData{}
 	err = json.Unmarshal(body, &githubData)
@@ -104,15 +104,15 @@ func (g *githubData) fetchGitHubData() {
 	}
 
 	githubDataLength := len(githubData.Data.Viewer.Repositories.Nodes)
-	logger.Sugar().Info("Number of repository nodes: %s", githubDataLength)
-	logger.Sugar().Info("GitHub data obtained: %v", githubData.Data.Viewer.Repositories.Nodes)
+	// logger.Sugar().Info("Number of repository nodes: %s", githubDataLength)
+	// logger.Sugar().Info("GitHub data obtained: %v", githubData.Data.Viewer.Repositories.Nodes)
 
 	for i := 0; i < githubDataLength-1; i++ {
 		githubDataNode := githubData.Data.Viewer.Repositories.Nodes[i]
-		if githubDataNode.IsFork {
-			logger.Sugar().Errorf("%s is a forked repository", githubDataNode.Name)
-			continue
-		}
+		// if githubDataNode.IsFork {
+		// 	logger.Sugar().Errorf("%s is a forked repository", githubDataNode.Name)
+		// 	continue
+		// }
 
 		// updatedAt, err := time.Parse(LAYOUT, githubDataNode.DefaultBranchRef.Target.Repository.UpdatedAt)
 		// if err != nil {
