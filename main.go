@@ -17,7 +17,7 @@ const (
 	GITHUB_STATS_URL = "https://github-readme-stats.vercel.app/api?username=shashank-priyadarshi&show_icons=true&hide_border=true&include_all_commits=true&card_width=600&custom_title=GitHub%20Open%20Source%20Stats&title_color=3B7EBF&text_color=474A4E&icon_color=3B7EBF&hide=contribs&show=prs_merged&theme=transparent#gh-light-mode-only"
 	GITHUB_URL       = "https://api.github.com/graphql"
 	GITHUB_QUERY     = `{
-		"query": "query { viewer { repositories(first: 100, ownerAffiliations: [OWNER]) { nodes { name url isFork defaultBranchRef { target { repository { updatedAt } ... on Commit { history(first: 100, since: \"2023-10-10T00:00:00Z\") { totalCount } } } } pullRequests(states: MERGED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) { totalCount } issues(states: CLOSED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) { totalCount } } } } }"
+		"query": "query { viewer { repositories(first: 100, ownerAffiliations: [OWNER], orderBy: {field: UPDATED_AT, direction: DESC}) { nodes { name url isFork defaultBranchRef { target { repository { updatedAt } ... on Commit { history(first: 100, since: \"2023-10-10T00:00:00Z\") { totalCount } } } } pullRequests(states: MERGED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) { totalCount } issues(states: CLOSED, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) { totalCount } } } } }"
 	}`
 	LAYOUT       = "2006-01-02T15:04:05Z07:00"
 	UPDATED_AT   = "Last Updated "
