@@ -17,7 +17,9 @@ jobs:
         with:
             go-version: '1.21'  
       - name: Install Dependencies
-        run: go mod tidy
+        run: |-
+          go mod tidy
+          rm README.md ./assets/images/stats.svg
       - name: Rebuild README.md File
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
