@@ -94,6 +94,8 @@ func (g *githubData) fetchGitHubData() {
 		return
 	}
 
+	logger.Sugar().Info("Raw GitHub data received: %s", string(body))
+
 	githubData := GitHubData{}
 	err = json.Unmarshal(body, &githubData)
 	if err != nil {
@@ -102,6 +104,8 @@ func (g *githubData) fetchGitHubData() {
 	}
 
 	githubDataLength := len(githubData.Data.Viewer.Repositories.Nodes)
+	logger.Sugar().Info("Number of repository nodes: %s", githubDataLength)
+	logger.Sugar().Info("GitHub data obtained: %v", githubData.Data.Viewer.Repositories.Nodes)
 
 	for i := 0; i < githubDataLength-1; i++ {
 		githubDataNode := githubData.Data.Viewer.Repositories.Nodes[i]
