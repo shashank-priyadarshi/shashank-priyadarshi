@@ -19,7 +19,7 @@ jobs:
       - name: Install Dependencies
         run: |-
             go mod tidy
-            export GITHUB_TOKEN={{secrets.GITHUB_TOKEN}}
+            export GITHUB_TOKEN={{secrets.GH_TOKEN}}
       - name: Rebuild README.md File
         run: go run main.go
       - name: Commit and Push if Changed
