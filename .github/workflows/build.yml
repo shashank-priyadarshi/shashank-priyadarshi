@@ -31,4 +31,5 @@ jobs:
           git config --global user.email "shashank9163882019@gmail.com"
           git config --global user.name "BA Actions Bot"
           git commit -m "docs: auto-update README.md" -a || exit 0
+          git pull 
           git push
