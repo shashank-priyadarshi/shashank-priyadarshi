@@ -25,7 +25,7 @@ const (
 
 var (
 	logger, _    = zap.NewProduction()
-	REPOCOUNT    = 20
+	REPOCOUNT    = 6
 	GITHUB_QUERY = `{
 		"query": "query {viewer {repositories(first: %d ownerAffiliations: [OWNER] orderBy: {field: PUSHED_AT, direction: DESC}isArchived: false privacy: PUBLIC) {nodes {name url pushedAt refs(refPrefix: \"refs/heads/\", first: 5) {nodes {name target {... on Commit {history(first: 100, since: \"%s\", author: {emails: [\"shashank9163882019@gmail.com\"]}) {totalCount}}}}} pullRequests(states: MERGED first: 100 orderBy: {field: UPDATED_AT, direction: DESC}) {totalCount} issues(states: CLOSED first: 100 orderBy: {field: UPDATED_AT, direction: DESC}) {totalCount}}}}}"
 	}`
@@ -107,8 +107,12 @@ func (g *githubData) fetchGitHubData() {
 
 	githubDataLength := len(githubData.Data.Viewer.Repositories.Nodes)
 
-	for i := 0; i < githubDataLength-1; i++ {
+	for i := 0; i < githubDataLength; i++ {
 		githubDataNode := githubData.Data.Viewer.Repositories.Nodes[i]
+
+		if strings.EqualFold(githubDataNode.Name, "shashank-priyadarshi") {
+			continue
+		}
 
 		g.prs, g.issues, g.projects = g.prs+githubDataNode.Issues.TotalCount, g.issues+githubDataNode.Issues.TotalCount, append(g.projects, item{
 			title:     githubDataNode.Name,
