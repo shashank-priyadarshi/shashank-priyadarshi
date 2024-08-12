@@ -4,7 +4,7 @@ go 1.21.0
 
 require (
 	github.com/mmcdole/gofeed v1.2.1
-	go.uber.org/zap v1.26.0
+	go.uber.org/zap v1.27.0
 )
 
 require (
