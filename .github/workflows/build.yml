@@ -20,6 +20,7 @@ jobs:
         run: |-
           go mod tidy
           rm -f README.md ./assets/images/stats.svg
+          touch ./assets/images/.empty
       - name: Rebuild README.md File
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
