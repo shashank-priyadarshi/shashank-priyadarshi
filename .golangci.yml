@@ -1,0 +1,9 @@
+linters:
+  enable-all: true
+  fast: false
+
+linters-settings:
+  govet:
+    check-shadowing: true
+    fast: false
+    enable-all: true

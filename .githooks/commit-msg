@@ -1,0 +1,6 @@
+#!/bin/bash
+
+commitlint_path=$(whereis commitlint)
+export PATH=$PATH:$commitlint_path
+
+commitlint --verbose --edit "$1"
