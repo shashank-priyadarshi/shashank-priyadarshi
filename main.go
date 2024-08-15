@@ -40,11 +40,14 @@ func main() {
 		logger.Sugar().Errorf("Error fetching GitHub stats image")
 	}
 
+	logger.Info("Successfully fetched GitHub stats image")
+
 	logger.Info("Starting script to auto update README")
 	markdown := markdown{}
 	markdown.generateMarkdown()
 
-	logger.Info("Data fetch and README update successful, writing to file")
+	logger.Info("Successfully fetched and updated README")
+	logger.Info("Writing README udpates to file")
 	if err := os.WriteFile("README.md", []byte(markdown.body), 0644); err != nil {
 		logger.Sugar().Errorf("error writing markdown buffer file: %s\n", err.Error())
 		return
@@ -74,10 +77,12 @@ type markdown struct {
 func (m *markdown) generateMarkdown() {
 	logger.Info("Starting README generation")
 	githubData := githubData{}
+
 	logger.Info("Fetching GitHub data")
 	githubData.fetchGitHubData()
-	rss := rss{}
+	
 	logger.Info("Fetching RSS data")
+	rss := rss{}
 	rss.fetchRSSData()
 
 	logger.Info("Setting README body")

@@ -1,4 +1,9 @@
-*output*
+.idea
+.vscode
+
 *test*
+*logs*
+*json
 README*
+
 !README.md
