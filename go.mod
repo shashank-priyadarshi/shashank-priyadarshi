@@ -1,4 +1,4 @@
-module shashank-priyadarshi
+module github.com/shashank-priyadarshi/shashank-priyadarshi
 
 go 1.23
 
