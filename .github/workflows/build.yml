@@ -17,7 +17,8 @@ jobs:
           python-version: 3.7
       - name: Create Chart
         run: pip install -r requirements.txt
-      - run: |
+      - run: |-
+          chmod +x ./rating_chart.py 
           ./rating_chart.py > assets/images/chart.txt
           CHART=$(cat chart.txt)
           echo "::set-output name=chart::$CHART"
