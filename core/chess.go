@@ -32,7 +32,7 @@ import (
 //fmt.Println(string(body))
 //
 //err = updateGist(Title, body)
-//fmt.Println(err.Error())
+//fmt.Println(err)
 
 func updateGist(title string, content []byte) error {
 	githubToken := os.Getenv("GITHUB_TOKEN")
