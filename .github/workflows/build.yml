@@ -24,7 +24,7 @@ jobs:
           NGAMES: 100
         run: |-
           sh -c 'chmod +x ./rating_chart.py'
-          python rating_chart.py > assets/images/chart.txt
+          python rating_chart.py > ./assets/images/chart.txt
           CHART=$(cat chart.txt)
           echo "::set-output name=chart::$CHART"
       - name: Use Go1.21
@@ -40,7 +40,7 @@ jobs:
         run: |-
           rm -f README.md ./assets/images/stats.svg
           go run main.go
-          cat assets/images/chart.txt >> README.md
+          cat ./assets/images/chart.txt >> README.md
           currentDate=`env TZ=America/New_York date`
           printf "\nChart last updated - ${currentDate}" >> README.md
           cat assets/README-2.md >> README.md
