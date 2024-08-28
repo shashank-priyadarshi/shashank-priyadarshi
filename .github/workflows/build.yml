@@ -12,10 +12,19 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - run: pip install -r requirements.txt
+        name: Create Chart
+      - run: |
+          rating_chart.py > assets/images/chart.txt
+          CHART=$(cat chart.txt)
+          echo "::set-output name=chart::$CHART"
       - name: Use Go1.21
         uses: actions/setup-go@v4
         with:
-            go-version: '1.21'  
+          go-version: '1.21'
       - name: Install Dependencies
         run: |-
           go mod tidy
@@ -25,10 +34,14 @@ jobs:
         run: |-
           rm -f README.md ./assets/images/stats.svg
           go run main.go
+          cat assets/images/chart.txt >> README.md
+          currentDate=`env TZ=America/New_York date`
+          printf "\nChart last updated - ${currentDate}" >> README.md
+          cat assets/README-2.md >> README.md
       - name: Commit and Push if Changed
         run: |-
+          git diff --exit-code
           git add .
-          git diff
           git config --global user.email "shashank9163882019@gmail.com"
           git config --global user.name "BA Actions Bot"
           git commit -m "docs: auto-update README.md" -a || exit 0
