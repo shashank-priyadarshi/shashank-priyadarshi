@@ -17,9 +17,14 @@ jobs:
           python-version: 3.7
       - name: Create Chart
         run: pip install -r requirements.txt
-      - run: |-
-          chmod +x ./rating_chart.py 
-          ./rating_chart.py > assets/images/chart.txt
+      - env:
+          USERNAME: ${{ secrets.USERNAME }}
+          TIME_CLASS: blitz
+          RULES: chess
+          NGAMES: 100
+        run: |-
+          sh -c 'chmod +x ./rating_chart.py'
+          python rating_chart.py > assets/images/chart.txt
           CHART=$(cat chart.txt)
           echo "::set-output name=chart::$CHART"
       - name: Use Go1.21
