@@ -38,7 +38,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |-
-          rm -f README.md ./assets/images/stats.svg
+          rm -f README.md ./assets/images/*.svg
           go run main.go
           cat ./assets/images/chart.txt >> README.md
           currentDate=`env TZ=America/New_York date`

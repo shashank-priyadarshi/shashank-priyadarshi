@@ -39,5 +39,5 @@ func httpClient(method, url, auth string, body []byte, headers map[string]string
 		return
 	}
 
-	return nil, response.Body.Close()
+	return resBody, response.Body.Close()
 }
