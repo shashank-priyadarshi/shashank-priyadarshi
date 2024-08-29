@@ -23,9 +23,9 @@ jobs:
           RULES: chess
           NGAMES: 100
         run: |-
-          sh -c 'chmod +x ./rating_chart.py'
-          python rating_chart.py > ./assets/images/chart.txt
-          CHART=$(cat ./assets/images/chart.txt)
+          sh -c 'chmod +x rating_chart.py'
+          python rating_chart.py > assets/images/chart.txt
+          CHART=$(cat assets/images/chart.txt)
           echo "::set-output name=chart::$CHART"
       - name: Use Go1.21
         uses: actions/setup-go@v4
@@ -38,10 +38,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |-
-          rm -f README.md ./assets/images/*.svg
+          rm -f README.md assets/images/*.svg
           go run main.go
-          cat assets/README-2.md >> README.md
-          cat ./assets/images/chart.txt >> README.md
+          cat assets/README-1.md >> README.md
+          cat assets/images/chart.txt >> README.md
           currentDate=`env TZ=America/New_York date`
           printf "\nChart last updated - ${currentDate}" >> README.md
           cat assets/README-2.md >> README.md
