@@ -46,7 +46,7 @@ jobs:
           cat assets/README-2.md >> README.md
       - name: Commit and Push if Changed
         run: |-
-          git diff --exit-code
+          git diff
           git add .
           git config --global user.email "shashank9163882019@gmail.com"
           git config --global user.name "BA Actions Bot"
