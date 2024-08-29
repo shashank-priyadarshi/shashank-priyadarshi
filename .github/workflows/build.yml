@@ -40,6 +40,7 @@ jobs:
         run: |-
           rm -f README.md ./assets/images/*.svg
           go run main.go
+          cat assets/README-2.md >> README.md
           cat ./assets/images/chart.txt >> README.md
           currentDate=`env TZ=America/New_York date`
           printf "\nChart last updated - ${currentDate}" >> README.md
