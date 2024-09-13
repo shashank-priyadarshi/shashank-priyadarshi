@@ -3,7 +3,8 @@ package core
 import "os"
 
 const (
-	RssURL                   = "https://hashnode.ssnk.in/rss.xml"
+	BlogRssURL               = "https://ssnk.in/posts/index.xml"
+	HashnodeRssURL           = "https://hashnode.ssnk.in/rss.xml"
 	GithubOpenSourceStatsURL = "https://github-readme-stats.vercel.app/api?username=shashank-priyadarshi&show_icons=true&hide_border=true&include_all_commits=true&card_width=600&custom_title=GitHub%20Open%20Source%20Stats&title_color=3B7EBF&text_color=474A4E&icon_color=3B7EBF&hide=contribs&show=prs_merged&theme=transparent#gh-light-mode-only"
 	GithubStreaksURL         = "https://streak-stats.demolab.com/?user=shashank-priyadarshi"
 	GithubURL                = "https://api.github.com/graphql"
