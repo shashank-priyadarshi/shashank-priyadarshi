@@ -11,10 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
-      - uses: actions/setup-python@v2
+        uses: actions/checkout@main
+      - uses: actions/setup-python@main
+      # https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
         with:
-          python-version: 3.7
+          python-version: 3.12
       - name: Create Chart
         run: pip install -r requirements.txt
       - env:
@@ -27,10 +28,10 @@ jobs:
           python rating_chart.py > assets/images/chart.txt
           CHART=$(cat assets/images/chart.txt)
           echo "::set-output name=chart::$CHART"
-      - name: Use Go1.21
-        uses: actions/setup-go@v4
+      - name: Use Go1.23
+        uses: actions/setup-go@main
         with:
-          go-version: '1.21'
+          go-version: '>=1.23.0'
       - name: Install Dependencies
         run: |-
           go mod tidy
