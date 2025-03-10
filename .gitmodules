@@ -22,24 +22,3 @@
 [submodule "tool/activitybox"]
 	path = tool/activitybox
 	url = https://github.com/JasonEtco/activity-box
-[submodule "tools/prodbox"]
-	path = tools/prodbox
-	url = https://github.com/maxam2017/productive-box
-[submodule "tools/langbox"]
-	path = tools/langbox
-	url = https://github.com/inokawa/lang-box
-[submodule "tools/githubstatsbox"]
-	path = tools/githubstatsbox
-	url = https://github.com/bokub/github-stats-box
-[submodule "tools/chesscombox"]
-	path = tools/chesscombox
-	url = https://github.com/sciencepal/chess-com-box-py
-[submodule "tools/leetcodeskillsbox"]
-	path = tools/leetcodeskillsbox
-	url = https://github.com/tbeachill/leetcode-skills-box
-[submodule "tools/leetcodebox"]
-	path = tools/leetcodebox
-	url = https://github.com/puiiyuen/leetcode-box
-[submodule "tools/activitybox"]
-	path = tools/activitybox
-	url = https://github.com/JasonEtco/activity-box
