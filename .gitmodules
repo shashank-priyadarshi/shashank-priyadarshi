@@ -1,24 +1,42 @@
-[submodule "prodbox"]
-	path = prodbox
+[submodule "submodules/prodbox"]
+	path = submodules/prodbox
 	url = https://github.com/maxam2017/productive-box
-[submodule "tool/prodbox"]
-	path = tool/prodbox
-	url = https://github.com/maxam2017/productive-box
-[submodule "tool/langbox"]
-	path = tool/langbox
+[submodule "submodules/langbox"]
+	path = submodules/langbox
 	url = https://github.com/inokawa/lang-box
-[submodule "tool/githubstatsbox"]
-	path = tool/githubstatsbox
+[submodule "submodules/githubstatsbox"]
+	path = submodules/githubstatsbox
 	url = https://github.com/bokub/github-stats-box
-[submodule "tool/chesscombox"]
-	path = tool/chesscombox
+[submodule "submodules/chesscombox"]
+	path = submodules/chesscombox
 	url = https://github.com/sciencepal/chess-com-box-py
-[submodule "tool/leetcodeskillsbox"]
-	path = tool/leetcodeskillsbox
+[submodule "submodules/leetcodeskillsbox"]
+	path = submodules/leetcodeskillsbox
 	url = https://github.com/tbeachill/leetcode-skills-box
-[submodule "tool/leetcodebox"]
-	path = tool/leetcodebox
+[submodule "submodules/leetcodebox"]
+	path = submodules/leetcodebox
 	url = https://github.com/puiiyuen/leetcode-box
-[submodule "tool/activitybox"]
-	path = tool/activitybox
+[submodule "submodules/activitybox"]
+	path = submodules/activitybox
 	url = https://github.com/JasonEtco/activity-box
+[submodule "submodules/resume"]
+	path = submodules/resume
+	url = https://github.com/anishshobithps/resume
+[submodule "submodules/activity-box"]
+	path = submodules/activity-box
+	url = https://github.com/JasonEtco/activity-box
+[submodule "submodules/leetcode-box"]
+	path = submodules/leetcode-box
+	url = https://github.com/puiiyuen/leetcode-box
+[submodule "submodules/leetcode-skills-box"]
+	path = submodules/leetcode-skills-box
+	url = https://github.com/tbeachill/leetcode-skills-box
+[submodule "submodules/chess-com-box-py"]
+	path = submodules/chess-com-box-py
+	url = https://github.com/sciencepal/chess-com-box-py
+[submodule "submodules/github-stats-box"]
+	path = submodules/github-stats-box
+	url = https://github.com/bokub/github-stats-box
+[submodule "submodules/lang-box"]
+	path = submodules/lang-box
+	url = https://github.com/inokawa/lang-box
