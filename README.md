@@ -21,6 +21,6 @@
  1003.50  ┤╭╯
   994.00  ┼╯
 
-Chart last updated - Fri Aug 14 21:10:50 EDT 2026  
+Chart last updated - Fri Aug 21 21:10:50 EDT 2026  
   ```
   
